@@ -74,6 +74,10 @@ See `queries.sql` for the full set. Includes:
 
 ## Dashboard
 
-Built in Power BI — two pages (Overview, Ingredients & Pricing) with category, brand, and price-tier breakdowns, a price-vs-rating scatter plot, and interactive slicers.
+Built in Power BI — two pages, with category, brand, and price-tier breakdowns, a price-vs-rating scatter plot, and interactive slicers.
 
+**Overview**
 ![Dashboard overview](charts/dashboard_overview.png)
+
+**Ingredients & Pricing**
+![Ingredients and pricing breakdown](charts/dashboard_ingredients_pricing.png)
