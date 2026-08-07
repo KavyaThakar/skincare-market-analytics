@@ -1,83 +1,105 @@
-# Skincare & Cosmetics Market Analytics
+# Skincare Intelligence | AI/ML Analytics & Recommendation System 
 
-A data analytics project answering one question using a 1,472-product Sephora catalog: **does price actually predict product quality?**
-
-End-to-end pipeline: raw data → Python cleaning → SQL analysis → Python visualizations → Power BI dashboard.
-
-**Tools:** Python (pandas) · SQLite/SQL · Matplotlib/Seaborn · Power BI
+A comprehensive data analytics and AI/ML system built on a 1,472-product Sephora skincare dataset. Features an **AI-powered Content-based Recommender**, **Random Forest Price Value Regressor**, **Formula Safety Scanner**, and **Interactive Streamlit Web Application**.
 
 ---
 
-## Key findings
+## 🌟 Key Features
 
-1. **Price barely moves rating.** Average rating stays in a tight 4.0–4.2 band from budget (under $25) to luxury ($100+) products, despite an 11x price difference.
-2. **Eye cream underperforms.** It's priced mid-pack but rated lowest of all six categories — worth flagging for further investigation.
-3. **Formula complexity doesn't buy a better rating.** Products with 50+ ingredients rate about the same as products with under 15.
-4. **Data quality catch:** several products had `Rating = 0`, which turned out to mean "not yet rated" rather than a real zero-star score. These were identified and excluded from all rating-based analysis to avoid skewing category and brand averages.
+1. **AI Product Matcher & Recommendation Engine**
+   - Content-based vector similarity matching using TF-IDF and Cosine Similarity on product ingredients.
+   - Filters products by category, max budget, skin type compatibility (Dry, Oily, Sensitive, Combination, Normal), liked ingredients, and avoided sensitivities (Fragrance, Alcohol, Parabens).
 
----
+2. **ML Formula Price & Value Estimator**
+   - Trained `RandomForestRegressor` predicting fair market prices based on product category, ingredient complexity, and skin type suitability.
+   - Evaluates product value ("Outstanding Bargain", "Fair Price", "Premium Luxury Price").
 
-## Dataset
+3. **AI Ingredient Safety & Formula Scanner**
+   - Deep-scans product formulation strings to identify active dermatological compounds (Niacinamide, Hyaluronic Acid, Salicylic Acid, Retinol) and flags common skin irritants/allergens.
 
-1,472 Sephora skincare products across 6 categories and 116 brands, with brand, price, rating, full ingredient list, and skin-type suitability.
-
----
-
-## Project structure
-
-| File | Purpose |
-|---|---|
-| `cosmetics_raw.csv` | Raw source data |
-| `cosmetics_clean.csv` | Cleaned data (output of step 1) |
-| `ingredients_long.csv` | One row per product-ingredient pair (output of step 1) |
-| `skincare.db` | SQLite database (output of step 2) |
-| `01_clean_data.py` | Cleaning + data quality checks |
-| `02_load_sql.py` | Loads cleaned data into SQLite |
-| `03_run_queries.py` | Runs SQL analysis, prints insights |
-| `04_visualize.py` | Generates charts |
-| `queries.sql` | Reference SQL (window functions, CTEs) |
-| `charts/` | PNG chart outputs |
-| `skincare-market-analysis.pbix` | Power BI dashboard |
+4. **Live Market Analytics Dashboard**
+   - Interactive Plotly charts analyzing price vs. rating distributions, category price benchmarks, and top brand catalog distributions.
 
 ---
 
-## How to run
+## 🚀 How to Run Locally
 
-Install dependencies:
+### Prerequisites
+Make sure Python 3.9+ is installed. Install required packages:
 
 ```bash
-pip install pandas matplotlib seaborn
+pip install -r requirements.txt
 ```
 
-Run the pipeline in order:
+### 1. Data Cleaning & Model Setup
+Run the processing scripts:
 
 ```bash
-python 01_clean_data.py
-python 02_load_sql.py
-python 03_run_queries.py
-python 04_visualize.py
+py 01_clean_data.py
+py ml_pipeline.py
 ```
 
-Then open `skincare-market-analysis.pbix` in Power BI Desktop for the interactive dashboard.
+### 2. Launch the Streamlit Web Application
+
+```bash
+py -m streamlit run app.py
+```
+
+The web app will open automatically in your browser at `http://localhost:8501`.
 
 ---
 
-## SQL techniques used
+## ☁️ Cloud Deployment Guide (How to Make it Live)
 
-See `queries.sql` for the full set. Includes:
+### Option A: Streamlit Community Cloud (Recommended — Free & 1-Click)
 
-- Window functions — `RANK()`, `DENSE_RANK()` partitioned by category
-- CTEs for multi-step logic
-- `GROUP BY` / `HAVING` with derived metrics
+1. **Push Code to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Add AI/ML pipeline, Streamlit app, and deployment files"
+   git push origin main
+   ```
+2. **Deploy on Streamlit Cloud**:
+   - Go to [share.streamlit.io](https://share.streamlit.io) and log in with GitHub.
+   - Click **New App**.
+   - Select your repository (`skincare-market-analytics`), branch (`main`), and set Main file path to `app.py`.
+   - Click **Deploy**! Your app will be live with a shareable URL in under 2 minutes.
 
 ---
 
-## Dashboard
+### Option B: Hugging Face Spaces (Free Cloud Hosting)
 
-Built in Power BI — two pages, with category, brand, and price-tier breakdowns, a price-vs-rating scatter plot, and interactive slicers.
+1. Create a new Space on [Hugging Face Spaces](https://huggingface.co/spaces).
+2. Select **Streamlit** as the Space SDK.
+3. Push or upload your repository files (`app.py`, `ml_pipeline.py`, `cosmetics_clean.csv`, `requirements.txt`, `.streamlit/config.toml`).
+4. Hugging Face will automatically build and host your live interactive AI web app.
 
-**Overview**
-![Dashboard overview](charts/dashboard_overview.png)
+---
 
-**Ingredients & Pricing**
-![Ingredients and pricing breakdown](charts/dashboard_ingredients_pricing.png)
+### Option C: Docker Cloud Hosting (Render / GCP / AWS)
+
+Use the included `Dockerfile` to build and deploy to any container platform:
+
+```bash
+docker build -t skincare-ai-app .
+docker run -p 8501:8501 skincare-ai-app
+```
+
+---
+
+## 📁 Repository Structure
+
+```
+├── app.py                      # Main Streamlit Web Application
+├── ml_pipeline.py              # ML Engine (Recommender, Regressor, Scanner)
+├── 01_clean_data.py            # Data cleaning pipeline
+├── 02_load_sql.py              # Loads clean data into SQLite database
+├── 03_run_queries.py           # Executes SQL analytical queries
+├── 04_visualize.py             # Generates static Matplotlib/Seaborn charts
+├── cosmetics_clean.csv         # Cleaned dataset (1,472 products)
+├── ingredients_long.csv        # Exploded ingredient-product relational table
+├── requirements.txt            # Python dependencies for app & ML
+├── Dockerfile                  # Container deployment configuration
+└── .streamlit/
+    └── config.toml             # Streamlit custom theme configuration
+```
