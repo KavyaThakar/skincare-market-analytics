@@ -2,6 +2,10 @@
 
 A comprehensive data analytics and AI/ML system built on a 1,472-product Sephora skincare dataset. Features an **AI-powered Content-based Recommender**, **Random Forest Price Value Regressor**, **Formula Safety Scanner**, and **Interactive Streamlit Web Application**.
 
+## 🚀 Live Project
+
+🔗 **[View Live Project](https://kavyathakar-skincare-market-analytics-app-jba1bb.streamlit.app/)**
+
 ---
 
 ## 🌟 Key Features
