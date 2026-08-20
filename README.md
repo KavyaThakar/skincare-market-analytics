@@ -55,7 +55,25 @@ The web app will open automatically in your browser at `http://localhost:8501`.
 
 ## ☁️ Cloud Deployment Guide (How to Make it Live)
 
-### Option A: Streamlit Community Cloud (Recommended — Free & 1-Click)
+### Option A: Netlify (Serverless WebAssembly Deployment — Recommended)
+
+This project includes **Stlite** integration, allowing the app to deploy natively to **Netlify** as a static site running Python directly in the user's browser via WebAssembly (Pyodide):
+
+1. **Push to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Add Netlify & Stlite deployment files"
+   git push origin main
+   ```
+2. **Connect to Netlify**:
+   - Go to [app.netlify.com](https://app.netlify.com) → **Add new site** → **Import an existing project**.
+   - Select your GitHub repo (`skincare-market-analytics`).
+   - Set Publish Directory to `.` and click **Deploy**.
+   - *For detailed CLI and Drag-and-Drop options, see [NETLIFY_DEPLOYMENT.md](file:///d:/skincare-market-analytics/NETLIFY_DEPLOYMENT.md).*
+
+---
+
+### Option B: Streamlit Community Cloud (Free & 1-Click)
 
 1. **Push Code to GitHub**:
    ```bash
@@ -71,7 +89,7 @@ The web app will open automatically in your browser at `http://localhost:8501`.
 
 ---
 
-### Option B: Hugging Face Spaces (Free Cloud Hosting)
+### Option C: Hugging Face Spaces (Free Cloud Hosting)
 
 1. Create a new Space on [Hugging Face Spaces](https://huggingface.co/spaces).
 2. Select **Streamlit** as the Space SDK.
@@ -80,7 +98,7 @@ The web app will open automatically in your browser at `http://localhost:8501`.
 
 ---
 
-### Option C: Docker Cloud Hosting (Render / GCP / AWS)
+### Option D: Docker Cloud Hosting (Render / GCP / AWS)
 
 Use the included `Dockerfile` to build and deploy to any container platform:
 
